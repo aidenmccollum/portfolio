@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Aiden McCollum</title>
+    <link rel="stylesheet" href="./static/styles/index.css">
+
+    <!-- font import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+
+    <script type="importmap">
+        {
+          "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/"
+          }
+        }
+      </script>
+</head>
+<body>
+    <div class="navbar">
+        <img class="logo" src="./static/assets/AM_logo.png" alt="">
+        <ul style="float: right;">
+            <li><a class="active" href="#home">Home</a></li>
+            <li><a href="#news">About</a></li>
+            <li><a href="#contact">Projects</a></li>
+        </ul>
+    </div>
+    
+    <div id="intro-box">
+        <h3>Hey there, my name is</h3>
+        <h1>Aiden McCollum</h1>
+        <h2>and I'm here to build random s#!t</h2>
+    </div>
+
+    <div id="action-div">
+        <button id="damoon" class="square-button">Look at da moon</button>
+        <button id="other-button" class="square-button">Other projects</button>
+    </div>
+    <script type="module" src="./static/js/main.js"></script>
+</body>
+</html>
