@@ -4,24 +4,30 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+import { determineOrbit } from './calcs.js';
+
+//defining common variables
+var lookTarget = new THREE.Vector3(-2500,0,0);
+var currentLook = new THREE.Vector3(-2500,0,0);
+var panSpeed = 100; // the higher the value, the slower the pan
 
 
 // defining scene and renderer
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 4000 );
-camera.position.set(0,300,700);
+const camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 40000 );
+camera.position.set(0, 2000, 6500);
 const renderer = new THREE.WebGLRenderer({antialias: true});
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setPixelRatio(window.devicePixelRatio);
 document.body.appendChild( renderer.domElement );
 
 const textureLoader = new THREE.TextureLoader();
-//ambient lighting
-const light = new THREE.AmbientLight( 0x404040); // soft white light
+// //ambient lighting
+const light = new THREE.AmbientLight( 0x404040, 0.25); // soft white light
 scene.add( light );
 
 //sunlight
-const sunlight = new THREE.PointLight(0xffffff);
+const sunlight = new THREE.PointLight(0xffffff, 2000000);
 sunlight.castShadow = true; 
 scene.add(sunlight);
 
@@ -54,7 +60,7 @@ bloomComposer.addPass(renderScene);
 bloomComposer.addPass(bloomPass);
 
 //sun object
-const sunGeometry = new THREE.SphereGeometry(109, 400, 200);
+const sunGeometry = new THREE.SphereGeometry(696.34, 400, 200); //radius in 1000's of km
 const sunMaterial = new THREE.MeshStandardMaterial({
     emissiveIntensity:1,
     emissive: 0xffd700
@@ -68,8 +74,8 @@ console.log('rendering view')
 //generating an earth centered system
 const earthSystem = new THREE.Group()
 
-const earthR = 25;
-const earthS = 50;
+const earthR = 250;
+const earthS = 500;
 const tilt = 0.41; //earth axis tilt in radiuams
 
 //creating the earth
@@ -91,14 +97,27 @@ earthMesh.rotation.z = tilt;
 
 earthSystem.add(earthMesh);
 
+//atmosphere
+// const atmosphereGeometry = new THREE.SphereGeometry(earthR+1, earthS, earthS);
+// const atmosphereMat = new THREE.MeshPhongMaterial({
+//     emissive: 0x0328fc,
+//     emissiveIntensity: 3,
+//     transparent: true,
+//     opacity: 0.01
+// })
+
+// const atmosphere = new THREE.Mesh(atmosphereGeometry, atmosphereMat);
+
+// earthSystem.add(atmosphere);
+
 //MOON
-const moonGeometry = new THREE.SphereGeometry(5, 40, 20);
+const moonGeometry = new THREE.SphereGeometry(50, 40, 20);
 const moonMaterial = new THREE.MeshStandardMaterial({
     color: 0x878787
 });
 const moonMesh = new THREE.Mesh(moonGeometry, moonMaterial);
 
-moonMesh.position.set(40,0,0);
+moonMesh.position.set(500,0,0);
 earthSystem.add(moonMesh);
 
 scene.add(earthSystem)
@@ -119,9 +138,20 @@ moonMesh.receiveShadow = true;
 moonMesh.castShadow = true;
 
 //generating the earths orbit path
+// let x = 0;
+// let a = 0;
+// let b = 0;
+// x, a, b = determineOrbit(0.0167086, 152100, 147100);
+// const curve = new THREE.EllipseCurve(
+//     x,0,
+//     a,b,
+//     0, 2*Math.PI,
+// )
+
+// fake orbit
 const curve = new THREE.EllipseCurve(
     0,0,
-    250,300,
+    2500,3000,
     0, 2*Math.PI,
 )
 
@@ -137,11 +167,11 @@ scene.add(orbit);
 //orbiting animation constants
 const loopTime = 1;
 const earthOrbitSpeed = 0.00001;
-const moonOrbitRadius = 55;
+const moonOrbitRadius = 500;
 const moonOrbitSpeed = 80;
 
 //default look at side
-camera.lookAt(new THREE.Vector3(-250,0,0));
+camera.lookAt(lookTarget);
 
 function animate() {
     
@@ -165,6 +195,20 @@ function animate() {
     moonMesh.rotation.y +=0.0001;
 
 
+    //move the camera if the locations dont match
+    if (lookTarget != currentLook) {
+        let dirX =  (lookTarget.x - currentLook.x)/panSpeed;
+        let dirY = (lookTarget.y - currentLook.y)/panSpeed;
+        let dirZ = (lookTarget.z - currentLook.z)/panSpeed;
+
+        currentLook.x += dirX;
+        currentLook.y += dirY;
+        currentLook.z += dirZ;
+
+        camera.lookAt(currentLook);
+    }
+
+
 
 
 	renderer.render( scene, camera );
@@ -180,5 +224,8 @@ document.getElementById("damoon").onclick = function() {
     controls.enabled = true;
     document.getElementById("intro-box").classList.add('hidden');
     document.getElementById("action-div").classList.add('hidden');
-    camera.lookAt(new THREE.Vector3(0,0,0));
+    setTimeout(function(){
+        lookTarget = new THREE.Vector3(0,0,0);
+    }, 400);
+    
 };
