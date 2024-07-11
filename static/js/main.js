@@ -9,13 +9,13 @@ import { determineOrbit } from './calcs.js';
 //defining common variables
 var lookTarget = new THREE.Vector3(-2500,0,0);
 var currentLook = new THREE.Vector3(-2500,0,0);
-var panSpeed = 100; // the higher the value, the slower the pan
+var panSpeed = 1; // the higher the value, the slower the pan
 
 
 // defining scene and renderer
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 40000 );
-camera.position.set(0, 2000, 6500);
+const camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 40000000 );
+
 const renderer = new THREE.WebGLRenderer({antialias: true});
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -27,7 +27,7 @@ const light = new THREE.AmbientLight( 0x404040, 0.25); // soft white light
 scene.add( light );
 
 //sunlight
-const sunlight = new THREE.PointLight(0xffffff, 2000000);
+const sunlight = new THREE.PointLight(0xffffff, 10000000000);
 sunlight.castShadow = true; 
 scene.add(sunlight);
 
@@ -74,7 +74,7 @@ console.log('rendering view')
 //generating an earth centered system
 const earthSystem = new THREE.Group()
 
-const earthR = 250;
+const earthR = 6.378;
 const earthS = 500;
 const tilt = 0.41; //earth axis tilt in radiuams
 
@@ -111,7 +111,7 @@ earthSystem.add(earthMesh);
 // earthSystem.add(atmosphere);
 
 //MOON
-const moonGeometry = new THREE.SphereGeometry(50, 40, 20);
+const moonGeometry = new THREE.SphereGeometry(1.74, 40, 20);
 const moonMaterial = new THREE.MeshStandardMaterial({
     color: 0x878787
 });
@@ -138,31 +138,30 @@ moonMesh.receiveShadow = true;
 moonMesh.castShadow = true;
 
 //generating the earths orbit path
-// let x = 0;
-// let a = 0;
-// let b = 0;
-// x, a, b = determineOrbit(0.0167086, 152100, 147100);
-// const curve = new THREE.EllipseCurve(
-//     x,0,
-//     a,b,
-//     0, 2*Math.PI,
-// )
 
-// fake orbit
+let orbitVals = determineOrbit(0.0167086, 152097, 147098);
+console.log(orbitVals);
 const curve = new THREE.EllipseCurve(
-    0,0,
-    2500,3000,
+    orbitVals["offset"],0,
+    orbitVals["semimajoraxis"],orbitVals["semiminoraxis"],
     0, 2*Math.PI,
 )
 
-const points = curve.getSpacedPoints(200); //divide orbit into 200 even pieces
+// fake orbit
+// const curve = new THREE.EllipseCurve(
+//     0,0,
+//     2500,3000,
+//     0, 2*Math.PI,
+// )
+
+const points = curve.getSpacedPoints(20000); //divide orbit into 200 even pieces
 
 const geometry = new THREE.BufferGeometry().setFromPoints(points);
 const material = new THREE.LineBasicMaterial({color: 0x333333, transparent: true, opacity: 0.5});
 
-const orbit = new THREE.Line(geometry, material);
-orbit.rotateX(-Math.PI/2); //rotated -90 degrees to be on y axis
-scene.add(orbit);
+// const orbit = new THREE.Line(geometry, material);
+// orbit.rotateX(-Math.PI/2); //rotated -90 degrees to be on y axis
+// scene.add(orbit);
 
 //orbiting animation constants
 const loopTime = 1;
@@ -174,13 +173,12 @@ const moonOrbitSpeed = 80;
 camera.lookAt(lookTarget);
 
 function animate() {
-    
     //move earth around the sun
     const time = earthOrbitSpeed * performance.now();
     const t = (time % loopTime)/loopTime;
+    console.log(t);
 
     let p = curve.getPoint(t);//returns vector of where you are on the orbit at any time
-    // console.log(p, t);
 
     earthSystem.position.x = p.x;
     earthSystem.position.z = p.y;
@@ -194,6 +192,12 @@ function animate() {
     earthMesh.rotation.y+=0.0015;
     moonMesh.rotation.y +=0.0001;
 
+    var orbitR = Math.sqrt((p.x ** 2) + (p.y ** 2));
+    var orbitTheta = Math.atan(p.y/p.x);
+
+    camera.position.x = orbitR*Math.cos(orbitTheta)-5;
+    camera.position.z = orbitR*Math.sin(orbitTheta)+15;
+    lookTarget = new THREE.Vector3(earthSystem.position.x, earthSystem.position.y, earthSystem.position.z);
 
     //move the camera if the locations dont match
     if (lookTarget != currentLook) {

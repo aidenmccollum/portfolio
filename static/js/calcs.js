@@ -3,7 +3,7 @@ export function determineOrbit(e, Ra, Rp) {
     //out: x-offset, semi-major axis, semi-minor axis
     let a = (Ra + Rp)/2;
     let x = (Ra-Rp);
-    let b = Math.sqrt((1-e^2)*a^2);
+    let b = Math.sqrt((1-(e**2))*(a**2));
 
-    return a, x, b;
+    return {"offset":x, "semimajoraxis":a, "semiminoraxis":b};
 }
