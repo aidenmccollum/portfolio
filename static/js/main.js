@@ -7,15 +7,14 @@ import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js"
 import { determineOrbit } from './calcs.js';
 
 //defining common variables
-var lookTarget = new THREE.Vector3(-2500,0,0);
-var currentLook = new THREE.Vector3(-2500,0,0);
+var lookTarget = new THREE.Vector3(0,0,0);
+var currentLook = new THREE.Vector3(0,0,0);
 var panSpeed = 1; // the higher the value, the slower the pan
 
 
 // defining scene and renderer
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 40000000 );
-
 const renderer = new THREE.WebGLRenderer({antialias: true});
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -37,10 +36,10 @@ controls.enabled = false;
 const loader = new GLTFLoader();
 
 //adding cube (for demonstration)
-// const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-// const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-// const cube = new THREE.Mesh( geometry, material );
-// scene.add( cube );
+// const sim_geom = new THREE.BoxGeometry( 1, 1, 1 );
+// const sim_mat = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+// const sim_camera = new THREE.Mesh( sim_geom, sim_mat );
+// scene.add( sim_camera );
 
 //bloom renderer - for accurate visual effects
 const renderScene = new RenderPass(scene, camera);
@@ -62,7 +61,7 @@ bloomComposer.addPass(bloomPass);
 //sun object
 const sunGeometry = new THREE.SphereGeometry(696.34, 400, 200); //radius in 1000's of km
 const sunMaterial = new THREE.MeshStandardMaterial({
-    emissiveIntensity:1,
+    emissiveIntensity:2,
     emissive: 0xffd700
 });
 const sun = new THREE.Mesh(sunGeometry, sunMaterial);
@@ -166,17 +165,17 @@ const material = new THREE.LineBasicMaterial({color: 0x333333, transparent: true
 //orbiting animation constants
 const loopTime = 1;
 const earthOrbitSpeed = 0.00001;
-const moonOrbitRadius = 500;
-const moonOrbitSpeed = 80;
+const moonOrbitRadius = 384.4;
+const moonOrbitSpeed = 12.8;
 
 //default look at side
-camera.lookAt(lookTarget);
+// camera.lookAt(lookTarget);
+camera.position.set(0,0,25000)
 
 function animate() {
     //move earth around the sun
     const time = earthOrbitSpeed * performance.now();
     const t = (time % loopTime)/loopTime;
-    console.log(t);
 
     let p = curve.getPoint(t);//returns vector of where you are on the orbit at any time
 
@@ -192,25 +191,31 @@ function animate() {
     earthMesh.rotation.y+=0.0015;
     moonMesh.rotation.y +=0.0001;
 
-    var orbitR = Math.sqrt((p.x ** 2) + (p.y ** 2));
-    var orbitTheta = Math.atan(p.y/p.x);
+    const earthX = earthSystem.position.x;
+    const earthZ = earthSystem.position.z;
 
-    camera.position.x = orbitR*Math.cos(orbitTheta)-5;
-    camera.position.z = orbitR*Math.sin(orbitTheta)+15;
-    lookTarget = new THREE.Vector3(earthSystem.position.x, earthSystem.position.y, earthSystem.position.z);
+    var orbitR = Math.sqrt((earthX ** 2) + (earthZ ** 2))-10;
+    var orbitTheta = Math.atan(earthZ/earthX);
+
+    //transforming theta to match coordinate system continuity
+    if ((earthX < 0 && earthZ > 0)) {
+        // (-,+)
+        orbitTheta += Math.PI;
+    } else if (earthX < 0 && earthZ < 0) {
+        // (-,-)
+        orbitTheta -= Math.PI;
+    }
+
+    //adding offset to make it prettier
+    orbitTheta -= 0.0002
+
+    camera.position.x = orbitR*Math.cos(orbitTheta)-0.3;
+    camera.position.z = orbitR*Math.sin(orbitTheta)+1;
+    // camera.position.set(earthX, 70, earthZ);
+    lookTarget = new THREE.Vector3(earthX, earthSystem.position.y, earthZ);
 
     //move the camera if the locations dont match
-    if (lookTarget != currentLook) {
-        let dirX =  (lookTarget.x - currentLook.x)/panSpeed;
-        let dirY = (lookTarget.y - currentLook.y)/panSpeed;
-        let dirZ = (lookTarget.z - currentLook.z)/panSpeed;
-
-        currentLook.x += dirX;
-        currentLook.y += dirY;
-        currentLook.z += dirZ;
-
-        camera.lookAt(currentLook);
-    }
+    camera.lookAt(lookTarget);
 
 
 
@@ -225,7 +230,7 @@ renderer.setAnimationLoop( animate );
 
 // HTML Relevant JS
 document.getElementById("damoon").onclick = function() {
-    controls.enabled = true;
+    // controls.enabled = true;
     document.getElementById("intro-box").classList.add('hidden');
     document.getElementById("action-div").classList.add('hidden');
     setTimeout(function(){
