@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Home - Aiden McCollum</title>
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="/static/assets/favicon.ico"
+        />
+
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            spartan: ["League Spartan", "sans-serif"],
+                        },
+                        colors: {
+                            "purple-primary": "#8702fb",
+                        },
+                    },
+                },
+            };
+        </script>
+
+        <!-- font import -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap"
+            rel="stylesheet"
+        />
+
+        <script type="importmap">
+            {
+                "imports": {
+                    "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js",
+                    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/"
+                }
+            }
+        </script>
+    </head>
+    <body class="font-spartan font-medium bg-black overflow-hidden">
+        <!-- Navigation -->
+        <nav class="fixed top-0 left-0 w-full z-30 h-16 md:h-20">
+            <div class="flex items-center justify-between px-4 md:px-8 h-full">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <img
+                        class="h-8 md:h-12 w-auto"
+                        src="./static/assets/AM_logo.png"
+                        alt="AM Logo"
+                    />
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8 pr-8">
+                    <a
+                        href="index.html"
+                        class="text-white text-lg hover:bg-gray-800 px-4 py-2 rounded transition-colors underline decoration-purple-primary decoration-2"
+                        >Home</a
+                    >
+                    <a
+                        href="about.html"
+                        class="text-white text-lg hover:bg-gray-800 px-4 py-2 rounded transition-colors"
+                        >About</a
+                    >
+                    <a
+                        href="projects.html"
+                        class="text-white text-lg hover:bg-gray-800 px-4 py-2 rounded transition-colors"
+                        >Projects</a
+                    >
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button
+                        id="mobile-menu-btn"
+                        class="text-white hover:text-gray-300 focus:outline-none focus:text-gray-300"
+                    >
+                        <svg
+                            class="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"
+                            />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <div
+                id="mobile-menu"
+                class="hidden md:hidden bg-black bg-opacity-95 absolute top-16 left-0 w-full"
+            >
+                <div class="px-4 py-2 space-y-1">
+                    <a
+                        href="index.html"
+                        class="block text-white text-lg hover:bg-gray-800 px-4 py-2 rounded underline decoration-purple-primary decoration-2"
+                        >Home</a
+                    >
+                    <a
+                        href="about.html"
+                        class="block text-white text-lg hover:bg-gray-800 px-4 py-2 rounded"
+                        >About</a
+                    >
+                    <a
+                        href="projects.html"
+                        class="block text-white text-lg hover:bg-gray-800 px-4 py-2 rounded"
+                        >Projects</a
+                    >
+                </div>
+            </div>
+        </nav>
+
+        <script type="module" src="./static/js/main.js"></script>
+    </body>
+</html>
