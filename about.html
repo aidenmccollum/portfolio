@@ -1,100 +1,567 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - Aiden McCollum</title>
-    <link rel="icon" type="image/x-icon" href="/static/assets/favicon.ico">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'inter': ['Inter', 'sans-serif'],
-                        'space': ['Space Grotesk', 'sans-serif'],
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>About - Aiden McCollum</title>
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="/static/assets/favicon.ico"
+        />
+
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            inter: ["Inter", "sans-serif"],
+                            space: ["Space Grotesk", "sans-serif"],
+                        },
+                        colors: {
+                            "purple-primary": "#8702fb",
+                        },
                     },
-                    colors: {
-                        'purple-primary': '#8702fb',
-                    }
-                }
-            }
-        }
-    </script>
+                },
+            };
+        </script>
 
-    <!-- font import -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body class="font-space font-medium min-h-screen bg-cover bg-center bg-fixed bg-no-repeat" style="background-image: url('/static/assets/background_photo.jpeg');">
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 w-full z-30 h-16 md:h-20">
-        <div class="flex items-center justify-between px-4 md:px-8 h-full">
-            <!-- Logo -->
-            <div class="flex-shrink-0">
-                <img class="h-8 md:h-12 w-auto" src="./static/assets/AM_logo.png" alt="AM Logo">
-            </div>
-            
-            <!-- Desktop Navigation -->
-            <div class="hidden md:flex space-x-2 pr-8">
-                <a href="index.html" class="text-white text-lg font-medium px-6 py-2 rounded-full hover:bg-gray-800 hover:bg-opacity-40 backdrop-blur-sm transition-all hover:scale-105">Home</a>
-                <a href="about.html" class="text-white text-lg font-medium px-6 py-2 rounded-full bg-purple-primary bg-opacity-20 border border-purple-primary backdrop-blur-sm transition-all hover:bg-opacity-30 hover:scale-105">About</a>
-                <a href="projects.html" class="text-white text-lg font-medium px-6 py-2 rounded-full hover:bg-gray-800 hover:bg-opacity-40 backdrop-blur-sm transition-all hover:scale-105">Projects</a>
-            </div>
-            
-            <!-- Mobile menu button -->
-            <div class="md:hidden">
-                <button id="mobile-menu-btn" class="text-white hover:text-gray-300 focus:outline-none focus:text-gray-300">
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-        
-        <!-- Mobile Navigation Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-black bg-opacity-95 absolute top-16 left-0 w-full">
-            <div class="px-4 py-2 space-y-2">
-                <a href="index.html" class="block text-white text-lg font-medium px-4 py-2 rounded-full hover:bg-gray-800 hover:bg-opacity-40 backdrop-blur-sm transition-all">Home</a>
-                <a href="about.html" class="block text-white text-lg font-medium px-4 py-2 rounded-full bg-purple-primary bg-opacity-20 border border-purple-primary backdrop-blur-sm">About</a>
-                <a href="projects.html" class="block text-white text-lg font-medium px-4 py-2 rounded-full hover:bg-gray-800 hover:bg-opacity-40 backdrop-blur-sm transition-all">Projects</a>
-            </div>
-        </div>
-    </nav>
+        <!-- font import -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body class="font-space font-medium bg-black text-white overflow-x-hidden">
+        <!-- Navigation -->
+        <nav class="fixed top-0 left-0 w-full z-30 h-16 md:h-20">
+            <div class="flex items-center justify-between px-4 md:px-8 h-full">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <img
+                        class="h-8 md:h-12 w-auto"
+                        src="./static/assets/AM_logo.png"
+                        alt="AM Logo"
+                    />
+                </div>
 
-    <!-- Main Content -->
-    <main class="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-20 pt-16 md:pt-20">
-        <div class="max-w-4xl">
-            <h1 class="text-white text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] font-inter font-bold mb-4 drop-shadow-2xl leading-none tracking-tight">About</h1>
-            <h2 class="text-white text-2xl md:text-4xl lg:text-6xl xl:text-7xl font-inter font-bold drop-shadow-2xl tracking-tight">Aiden McCollum</h2>
-            
-            <!-- Add some content about yourself -->
-            <div class="mt-8 md:mt-12 max-w-2xl">
-                <p class="text-white text-lg md:text-xl lg:text-2xl leading-relaxed drop-shadow-lg mb-6">
-                    I'm a passionate developer who loves creating interactive experiences and exploring the intersection of technology and creativity.
-                </p>
-                <p class="text-white text-lg md:text-xl lg:text-2xl leading-relaxed drop-shadow-lg mb-6">
-                    When I'm not coding, you can find me experimenting with 3D graphics, building space simulations, or working on random projects that spark my curiosity.
-                </p>
-                <div class="flex flex-wrap gap-4 mt-8">
-                    <span class="bg-purple-primary bg-opacity-20 text-white px-4 py-2 rounded-full border border-purple-primary">JavaScript</span>
-                    <span class="bg-purple-primary bg-opacity-20 text-white px-4 py-2 rounded-full border border-purple-primary">Three.js</span>
-                    <span class="bg-purple-primary bg-opacity-20 text-white px-4 py-2 rounded-full border border-purple-primary">Web Development</span>
-                    <span class="bg-purple-primary bg-opacity-20 text-white px-4 py-2 rounded-full border border-purple-primary">3D Graphics</span>
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-2 pr-8">
+                    <a
+                        href="index.html"
+                        class="text-white text-lg font-medium px-6 py-2 rounded-full hover:bg-gray-800 hover:bg-opacity-40 backdrop-blur-sm transition-all hover:scale-105"
+                        >Home</a
+                    >
+                    <a
+                        href="about.html"
+                        class="text-white text-lg font-medium px-6 py-2 rounded-full bg-purple-primary bg-opacity-20 border border-purple-primary backdrop-blur-sm transition-all hover:bg-opacity-30 hover:scale-105"
+                        >About</a
+                    >
+                    <a
+                        href="projects.html"
+                        class="text-white text-lg font-medium px-6 py-2 rounded-full hover:bg-gray-800 hover:bg-opacity-40 backdrop-blur-sm transition-all hover:scale-105"
+                        >Projects</a
+                    >
+                    <a
+                        href="blog.html"
+                        class="text-white text-lg font-medium px-6 py-2 rounded-full hover:bg-gray-800 hover:bg-opacity-40 backdrop-blur-sm transition-all hover:scale-105"
+                        >Blog</a
+                    >
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button
+                        id="mobile-menu-btn"
+                        class="text-white hover:text-gray-300 focus:outline-none focus:text-gray-300"
+                    >
+                        <svg
+                            class="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"
+                            />
+                        </svg>
+                    </button>
                 </div>
             </div>
-        </div>
-    </main>
 
-    <script>
-        // Mobile menu toggle
-        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        });
-    </script>
-</body>
+            <!-- Mobile Navigation Menu -->
+            <div
+                id="mobile-menu"
+                class="hidden md:hidden bg-black bg-opacity-95 absolute top-16 left-0 w-full"
+            >
+                <div class="px-4 py-2 space-y-2">
+                    <a
+                        href="index.html"
+                        class="block text-white text-lg font-medium px-4 py-2 rounded-full hover:bg-gray-800 hover:bg-opacity-40 backdrop-blur-sm transition-all"
+                        >Home</a
+                    >
+                    <a
+                        href="about.html"
+                        class="block text-white text-lg font-medium px-4 py-2 rounded-full bg-purple-primary bg-opacity-20 border border-purple-primary backdrop-blur-sm"
+                        >About</a
+                    >
+                    <a
+                        href="projects.html"
+                        class="block text-white text-lg font-medium px-4 py-2 rounded-full hover:bg-gray-800 hover:bg-opacity-40 backdrop-blur-sm transition-all"
+                        >Projects</a
+                    >
+                    <a
+                        href="blog.html"
+                        class="block text-white text-lg font-medium px-4 py-2 rounded-full hover:bg-gray-800 hover:bg-opacity-40 backdrop-blur-sm transition-all"
+                        >Blog</a
+                    >
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <!-- Hero Section -->
+            <section
+                class="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-20 relative bg-cover bg-center bg-fixed bg-no-repeat"
+                style="
+                    background-image: url(&quot;/static/assets/background_photo.jpeg&quot;);
+                "
+            >
+                <div class="max-w-4xl">
+                    <h1
+                        class="text-white text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] font-inter font-bold mb-4 drop-shadow-2xl leading-none tracking-tight"
+                    >
+                        About
+                    </h1>
+                    <h2
+                        class="text-white text-2xl md:text-4xl lg:text-6xl xl:text-7xl font-inter font-bold drop-shadow-2xl tracking-tight"
+                    >
+                        Aiden McCollum
+                    </h2>
+
+                    <div class="mt-8 md:mt-12 max-w-2xl">
+                        <p
+                            class="text-white text-lg md:text-xl lg:text-2xl leading-relaxed drop-shadow-lg mb-6"
+                        >
+                            I have a background in both aerospace engineering
+                            and software development. With industry experience
+                            at companies like SpaceX and Collins Aerospace, I
+                            have a strong passion for rocket propulsion and
+                            spaceflight.
+                        </p>
+                        <p
+                            class="text-white text-lg md:text-xl lg:text-2xl leading-relaxed drop-shadow-lg mb-6"
+                        >
+                            When I'm not coding or working on rocket engines,
+                            you'll find me surfing, hiking, or doing anything
+                            else outdoors.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Timeline Section -->
+            <section class="relative bg-gray-900">
+                <!-- Experience Sections -->
+                <div class="space-y-0 relative">
+                    <!-- Timeline Line -->
+                    <div
+                        class="hidden lg:block absolute left-16 top-0 bottom-0 w-0.5 bg-white z-10"
+                    ></div>
+
+                    <!-- 2025 section -->
+                    <section
+                        class="min-h-screen flex items-center px-6 md:px-16 lg:px-20 py-20 bg-cover bg-center relative"
+                        style="
+                            background-image: linear-gradient(
+                                    0.25turn,
+                                    rgba(0, 0, 0, 0.7),
+                                    rgba(0, 0, 0, 0.6),
+                                    rgba(0, 0, 0, 0.4),
+                                    rgba(0, 0, 0, 0.2),
+                                    rgba(0, 0, 0, 0.1)
+                                ),
+                                url(&quot;/static/assets/juno_1.jpeg&quot;);
+                        "
+                    >
+                        <!-- Timeline Dots -->
+                        <div class="hidden lg:block absolute left-8 top-64">
+                            <div class="relative">
+                                <div
+                                    class="w-4 h-4 bg-white rounded-full absolute left-6"
+                                ></div>
+                                <div class="ml-12 text-white text-2xl">
+                                    <div class="font-medium">
+                                        SpaceX - Raptor Test Engineering Intern
+                                    </div>
+                                    <div class="text-gray-400">
+                                        May 2025 - August 2025
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="hidden lg:block absolute left-8 top-64 mt-48"
+                        >
+                            <div class="relative">
+                                <div
+                                    class="w-4 h-4 bg-white rounded-full absolute left-6"
+                                ></div>
+                                <div class="ml-12 text-white text-2xl">
+                                    <div class="font-medium">
+                                        ERPL - President, Flight Fluids RE
+                                    </div>
+                                    <div class="text-gray-400">
+                                        August 2024 - May 2025
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Milestone Dots -->
+                        <div
+                            class="hidden lg:block absolute left-8 top-112 mt-48"
+                        >
+                            <div class="relative">
+                                <div
+                                    class="w-2.5 h-2.5 bg-white rounded-full absolute left-7"
+                                ></div>
+                                <div class="ml-12 text-gray-200 text-lg">
+                                    <div class="font-medium">
+                                        Triton Hot Fire #2
+                                    </div>
+                                    <div class="text-gray-400">
+                                        April 11, 2025
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="hidden lg:block absolute left-8 top-96 mt-72"
+                        >
+                            <div class="relative">
+                                <div
+                                    class="w-2.5 h-2.5 bg-white rounded-full absolute left-7"
+                                ></div>
+                                <div class="ml-12 text-gray-200 text-lg">
+                                    <div class="font-medium">
+                                        Triton Hot Fire #1
+                                    </div>
+                                    <div class="text-gray-400">
+                                        March 8, 2025
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="hidden lg:block absolute left-8 top-96 mt-96"
+                        >
+                            <div class="relative">
+                                <div
+                                    class="w-2.5 h-2.5 bg-white rounded-full absolute left-7"
+                                ></div>
+                                <div class="ml-12 text-gray-200 text-lg">
+                                    <div class="font-medium">Juno Fire #2</div>
+                                    <div class="text-gray-400">
+                                        December 6, 2024
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:block absolute left-8 bottom-20">
+                            <div class="relative">
+                                <div
+                                    class="w-2.5 h-2.5 bg-white rounded-full absolute left-7"
+                                ></div>
+                                <div class="ml-12 text-gray-200 text-lg">
+                                    <div class="font-medium">Juno Fire #1</div>
+                                    <div class="text-gray-400">
+                                        November 15, 2024
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- SpaceX Section -->
+                    <section
+                        class="min-h-screen flex items-center px-6 md:px-16 lg:px-20 py-20 bg-cover bg-center relative"
+                        style="
+                            background-image: linear-gradient(
+                                    0.25turn,
+                                    rgba(0, 0, 0, 0.7),
+                                    rgba(0, 0, 0, 0.6),
+                                    rgba(0, 0, 0, 0.4),
+                                    rgba(0, 0, 0, 0.2),
+                                    rgba(0, 0, 0, 0.1)
+                                ),
+                                url(&quot;/static/assets/spacex-f9.jpeg&quot;);
+                        "
+                    >
+                        <!-- Timeline Dots -->
+                        <div class="hidden lg:block absolute left-8 top-64">
+                            <div class="relative">
+                                <div
+                                    class="w-4 h-4 bg-white rounded-full absolute left-6"
+                                ></div>
+                                <div class="ml-12 text-white text-xl">
+                                    <div class="font-medium">
+                                        SpaceX - Merlin Flight Operations
+                                        Engineering Intern
+                                    </div>
+                                    <div class="text-gray-400">
+                                        May 2024 - August 2024
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="hidden lg:block absolute left-8 top-84 mt-96"
+                        >
+                            <div class="relative">
+                                <div
+                                    class="w-4 h-4 bg-white rounded-full absolute left-6"
+                                ></div>
+                                <div class="ml-12 text-white text-xl">
+                                    <div class="font-medium">
+                                        SpaceX - Ground Segment Operations
+                                        Engineering Intern
+                                    </div>
+                                    <div class="text-gray-400">
+                                        January 2024 - May 2024
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Milestone Dots -->
+                        <div
+                            class="hidden lg:block absolute left-8 top-96 mt-96"
+                        >
+                            <div class="relative">
+                                <div
+                                    class="w-2.5 h-2.5 bg-white rounded-full absolute left-7"
+                                ></div>
+                                <div class="ml-12 text-gray-200 text-lg">
+                                    <div class="font-medium">
+                                        Launched Postillion
+                                    </div>
+                                    <div class="text-gray-400">
+                                        January 17, 2024
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 2023 section -->
+                    <section
+                        class="min-h-screen flex items-center px-6 md:px-16 lg:px-20 py-20 bg-cover bg-center relative"
+                        style="
+                            background-image: linear-gradient(
+                                    0.25turn,
+                                    rgba(0, 0, 0, 0.7),
+                                    rgba(0, 0, 0, 0.6),
+                                    rgba(0, 0, 0, 0.4),
+                                    rgba(0, 0, 0, 0.2),
+                                    rgba(0, 0, 0, 0.1)
+                                ),
+                                url(&quot;/static/assets/odyssey_telephoto.jpeg&quot;);
+                        "
+                    >
+                        <!-- Timeline Dots -->
+                        <div class="hidden lg:block absolute left-8 top-64">
+                            <div class="relative">
+                                <div
+                                    class="w-4 h-4 bg-white rounded-full absolute left-6"
+                                ></div>
+                                <div class="ml-12 text-white text-xl">
+                                    <div class="font-medium">
+                                        ERPL - Valve Actuation RE, Ignition RE &
+                                        Treasurer
+                                    </div>
+                                    <div class="text-gray-400">
+                                        August 2023 - December 2023
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="hidden lg:block absolute left-8 top-84 mt-96"
+                        >
+                            <div class="relative">
+                                <div
+                                    class="w-4 h-4 bg-white rounded-full absolute left-6"
+                                ></div>
+                                <div class="ml-12 text-white text-xl">
+                                    <div class="font-medium">
+                                        Collins Aerospace - Mission Systems
+                                        Engineering Intern
+                                    </div>
+                                    <div class="text-gray-400">
+                                        May 2023 - August 2023
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Milestone Dots -->
+                        <div
+                            class="hidden lg:block absolute left-8 top-64 mt-24"
+                        >
+                            <div class="relative">
+                                <div
+                                    class="w-2.5 h-2.5 bg-white rounded-full absolute left-7"
+                                ></div>
+                                <div class="ml-12 text-gray-200 text-lg">
+                                    <div class="font-medium">
+                                        Odyssey Throttled Hot Fire
+                                    </div>
+                                    <div class="text-gray-400">
+                                        December 13, 2023
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="hidden lg:block absolute left-8 top-72 mt-36"
+                        >
+                            <div class="relative">
+                                <div
+                                    class="w-2.5 h-2.5 bg-white rounded-full absolute left-7"
+                                ></div>
+                                <div class="ml-12 text-gray-200 text-lg">
+                                    <div class="font-medium">
+                                        Odyssey Hot Fire #1
+                                    </div>
+                                    <div class="text-gray-400">
+                                        October 6, 2023
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- GroupPin Section -->
+                    <section
+                        class="min-h-screen flex items-center px-6 md:px-16 lg:px-20 py-20 bg-cover bg-center relative"
+                        style="
+                            background-image: linear-gradient(
+                                    0.25turn,
+                                    rgba(0, 0, 0, 0.7),
+                                    rgba(0, 0, 0, 0.6),
+                                    rgba(0, 0, 0, 0.4),
+                                    rgba(0, 0, 0, 0.2),
+                                    rgba(0, 0, 0, 0.1)
+                                ),
+                                url(&quot;/static/assets/grouppin_carmeet.jpg&quot;);
+                        "
+                    >
+                        <!-- Timeline Dots -->
+                        <div class="hidden lg:block absolute left-8 top-64">
+                            <div class="relative">
+                                <div
+                                    class="w-4 h-4 bg-white rounded-full absolute left-6"
+                                ></div>
+                                <div class="ml-12 text-white text-xl">
+                                    <div class="font-medium">
+                                        Novineer - Web Product Developer
+                                    </div>
+                                    <div class="text-gray-400">
+                                        May 2022 - August 2022
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="hidden lg:block absolute left-8 top-84 mt-96"
+                        >
+                            <div class="relative">
+                                <div
+                                    class="w-4 h-4 bg-white rounded-full absolute left-6"
+                                ></div>
+                                <div class="ml-12 text-white text-xl">
+                                    <div class="font-medium">
+                                        Started at Embry-Riddle Aeronautical
+                                        University
+                                    </div>
+                                    <div class="text-gray-400">August 2021</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Milestone Dots -->
+                        <div
+                            class="hidden lg:block absolute left-8 top-64 mt-48"
+                        >
+                            <div class="relative">
+                                <div
+                                    class="w-2.5 h-2.5 bg-white rounded-full absolute left-7"
+                                ></div>
+                                <div class="ml-12 text-gray-200 text-lg">
+                                    <div class="font-medium">
+                                        Launched GroupPin
+                                    </div>
+                                    <div class="text-gray-400">
+                                        December 30, 2021
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="hidden lg:block absolute left-8 top-96 mt-48"
+                        >
+                            <div class="relative">
+                                <div
+                                    class="w-2.5 h-2.5 bg-white rounded-full absolute left-7"
+                                ></div>
+                                <div class="ml-12 text-gray-200 text-lg">
+                                    <div class="font-medium">Joined ERPL</div>
+                                    <div class="text-gray-400">
+                                        August 30, 2021
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </main>
+
+        <script>
+            // Mobile menu toggle
+            document
+                .getElementById("mobile-menu-btn")
+                .addEventListener("click", function () {
+                    const menu = document.getElementById("mobile-menu");
+                    menu.classList.toggle("hidden");
+                });
+
+            // Timeline scroll highlighting
+            window.addEventListener("scroll", function () {
+                const sections = document.querySelectorAll("section");
+                const timelineItems =
+                    document.querySelectorAll(".timeline-item");
+
+                sections.forEach((section, index) => {
+                    const rect = section.getBoundingClientRect();
+                    if (
+                        rect.top <= window.innerHeight / 2 &&
+                        rect.bottom >= window.innerHeight / 2
+                    ) {
+                        timelineItems.forEach((item, itemIndex) => {
+                            if (itemIndex === index - 1) {
+                                item.classList.add("active");
+                            } else {
+                                item.classList.remove("active");
+                            }
+                        });
+                    }
+                });
+            });
+        </script>
+    </body>
 </html>

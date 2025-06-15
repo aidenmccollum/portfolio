@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Blog - Aiden McCollum</title>
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="/static/assets/favicon.ico"
+        />
+
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            inter: ["Inter", "sans-serif"],
+                            space: ["Space Grotesk", "sans-serif"],
+                        },
+                        colors: {
+                            "purple-primary": "#8702fb",
+                        },
+                    },
+                },
+            };
+        </script>
+
+        <!-- font import -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body class="font-space font-medium bg-black text-white min-h-screen">
+        <!-- Navigation -->
+        <nav
+            class="fixed top-0 left-0 w-full z-30 h-16 md:h-20 bg-black bg-opacity-90 backdrop-blur-sm border-b border-gray-800"
+        >
+            <div class="flex items-center justify-between px-4 md:px-8 h-full">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <img
+                        class="h-8 md:h-12 w-auto"
+                        src="./static/assets/AM_logo.png"
+                        alt="AM Logo"
+                    />
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-2 pr-8">
+                    <a
+                        href="index.html"
+                        class="text-white text-lg font-medium px-6 py-2 rounded-full hover:bg-gray-800 hover:bg-opacity-40 backdrop-blur-sm transition-all hover:scale-105"
+                        >Home</a
+                    >
+                    <a
+                        href="about.html"
+                        class="text-white text-lg font-medium px-6 py-2 rounded-full hover:bg-gray-800 hover:bg-opacity-40 backdrop-blur-sm transition-all hover:scale-105"
+                        >About</a
+                    >
+                    <a
+                        href="projects.html"
+                        class="text-white text-lg font-medium px-6 py-2 rounded-full hover:bg-gray-800 hover:bg-opacity-40 backdrop-blur-sm transition-all hover:scale-105"
+                        >Projects</a
+                    >
+                    <a
+                        href="blog.html"
+                        class="text-white text-lg font-medium px-6 py-2 rounded-full bg-purple-primary bg-opacity-20 border border-purple-primary backdrop-blur-sm transition-all hover:bg-opacity-30 hover:scale-105"
+                        >Blog</a
+                    >
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button
+                        id="mobile-menu-btn"
+                        class="text-white hover:text-gray-300 focus:outline-none focus:text-gray-300"
+                    >
+                        <svg
+                            class="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"
+                            />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <div
+                id="mobile-menu"
+                class="hidden md:hidden bg-black bg-opacity-95 absolute top-16 left-0 w-full border-b border-gray-800"
+            >
+                <div class="px-4 py-2 space-y-2">
+                    <a
+                        href="index.html"
+                        class="block text-white text-lg font-medium px-4 py-2 rounded-full hover:bg-gray-800 hover:bg-opacity-40 backdrop-blur-sm transition-all"
+                        >Home</a
+                    >
+                    <a
+                        href="about.html"
+                        class="block text-white text-lg font-medium px-4 py-2 rounded-full hover:bg-gray-800 hover:bg-opacity-40 backdrop-blur-sm transition-all"
+                        >About</a
+                    >
+                    <a
+                        href="projects.html"
+                        class="block text-white text-lg font-medium px-4 py-2 rounded-full hover:bg-gray-800 hover:bg-opacity-40 backdrop-blur-sm transition-all"
+                        >Projects</a
+                    >
+                    <a
+                        href="blog.html"
+                        class="block text-white text-lg font-medium px-4 py-2 rounded-full bg-purple-primary bg-opacity-20 border border-purple-primary backdrop-blur-sm"
+                        >Blog</a
+                    >
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="flex min-h-screen pt-16 md:pt-20">
+            <!-- Sidebar -->
+            <div
+                class="w-80 bg-black border-r border-gray-800 p-6 overflow-y-auto hidden lg:block"
+            >
+                <h2 class="text-2xl font-bold text-purple-primary mb-6">
+                    Blog Posts
+                </h2>
+                <div id="blog-list" class="space-y-4">
+                    <!-- Blog posts will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Mobile sidebar toggle -->
+            <div class="lg:hidden fixed bottom-4 left-4 z-40">
+                <button
+                    id="sidebar-toggle"
+                    class="bg-purple-primary hover:bg-purple-600 text-white p-3 rounded-full shadow-lg transition-colors"
+                >
+                    <svg
+                        class="w-6 h-6"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"
+                        ></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile sidebar overlay -->
+            <div
+                id="mobile-sidebar"
+                class="lg:hidden fixed inset-0 z-30 hidden"
+            >
+                <div
+                    class="absolute inset-0 bg-black bg-opacity-50"
+                    id="sidebar-overlay"
+                ></div>
+                <div
+                    class="absolute left-0 top-0 h-full w-80 bg-gray-900 p-6 pt-24 overflow-y-auto"
+                >
+                    <h2 class="text-2xl font-bold text-purple-primary mb-6">
+                        Blog Posts
+                    </h2>
+                    <div id="mobile-blog-list" class="space-y-4">
+                        <!-- Blog posts will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="flex-1 p-6 md:p-12 max-w-4xl mx-auto">
+                <div id="blog-content">
+                    <!-- Welcome message -->
+                    <div class="text-center py-16">
+                        <h1
+                            class="text-4xl md:text-6xl font-bold text-white mb-4"
+                        >
+                            Welcome to my Brain Dump
+                        </h1>
+                        <p class="text-xl text-gray-400">
+                            Not a lot here right now. Check back later.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Blog posts data
+            const blogPosts = [
+                // {
+                //     id: "getting-started",
+                //     title: "Getting Started with Aerospace Engineering",
+                //     date: "2024-01-15",
+                //     file: "getting-started.html",
+                // },
+                // {
+                //     id: "space-exploration",
+                //     title: "The Future of Space Exploration",
+                //     date: "2024-01-10",
+                //     file: "space-exploration.html",
+                // },
+                // {
+                //     id: "software-development",
+                //     title: "Software Development in Aerospace",
+                //     date: "2024-01-05",
+                //     file: "software-development.html",
+                // },
+            ];
+
+            let currentPost = null;
+
+            // Load blog posts into sidebar
+            function loadBlogList() {
+                const blogList = document.getElementById("blog-list");
+                const mobileBlogList =
+                    document.getElementById("mobile-blog-list");
+
+                const postElements = blogPosts
+                    .map((post) => {
+                        const formattedDate = new Date(
+                            post.date,
+                        ).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                        });
+
+                        return `
+                        <div class="blog-post-item cursor-pointer p-4 rounded-lg hover:bg-gray-800 transition-colors border-l-4 border-transparent hover:border-purple-primary"
+                             data-post-id="${post.id}" onclick="loadPost('${post.id}')">
+                            <h3 class="text-lg font-semibold text-white mb-1">${post.title}</h3>
+                            <p class="text-sm text-gray-400">${formattedDate}</p>
+                        </div>
+                    `;
+                    })
+                    .join("");
+
+                blogList.innerHTML = postElements;
+                mobileBlogList.innerHTML = postElements;
+            }
+
+            // Load a specific blog post
+            async function loadPost(postId) {
+                const post = blogPosts.find((p) => p.id === postId);
+                if (!post) return;
+
+                // Update active state
+                document.querySelectorAll(".blog-post-item").forEach((item) => {
+                    item.classList.remove(
+                        "bg-gray-800",
+                        "border-purple-primary",
+                    );
+                    item.classList.add("border-transparent");
+                });
+
+                document
+                    .querySelectorAll(`[data-post-id="${postId}"]`)
+                    .forEach((item) => {
+                        item.classList.add(
+                            "bg-gray-800",
+                            "border-purple-primary",
+                        );
+                        item.classList.remove("border-transparent");
+                    });
+
+                // Close mobile sidebar
+                document
+                    .getElementById("mobile-sidebar")
+                    .classList.add("hidden");
+
+                try {
+                    const response = await fetch(`blog/${post.file}`);
+                    const content = await response.text();
+                    document.getElementById("blog-content").innerHTML = content;
+                    currentPost = postId;
+
+                    // Update URL without page reload
+                    history.pushState({ post: postId }, "", `?post=${postId}`);
+                } catch (error) {
+                    console.error("Error loading post:", error);
+                    document.getElementById("blog-content").innerHTML = `
+                        <div class="text-center py-16">
+                            <h2 class="text-2xl font-bold text-red-400 mb-4">Error Loading Post</h2>
+                            <p class="text-gray-400">Sorry, there was an error loading this blog post.</p>
+                        </div>
+                    `;
+                }
+            }
+
+            // Mobile menu toggle
+            document
+                .getElementById("mobile-menu-btn")
+                .addEventListener("click", function () {
+                    const menu = document.getElementById("mobile-menu");
+                    menu.classList.toggle("hidden");
+                });
+
+            // Mobile sidebar toggle
+            document
+                .getElementById("sidebar-toggle")
+                .addEventListener("click", function () {
+                    document
+                        .getElementById("mobile-sidebar")
+                        .classList.remove("hidden");
+                });
+
+            document
+                .getElementById("sidebar-overlay")
+                .addEventListener("click", function () {
+                    document
+                        .getElementById("mobile-sidebar")
+                        .classList.add("hidden");
+                });
+
+            // Handle browser back/forward
+            window.addEventListener("popstate", function (e) {
+                if (e.state && e.state.post) {
+                    loadPost(e.state.post);
+                } else {
+                    document.getElementById("blog-content").innerHTML = `
+                        <div class="text-center py-16">
+                            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">Welcome to My Blog</h1>
+                            <p class="text-xl text-gray-400">Select a post from the sidebar to start reading</p>
+                        </div>
+                    `;
+                    currentPost = null;
+                }
+            });
+
+            // Initialize
+            document.addEventListener("DOMContentLoaded", function () {
+                loadBlogList();
+
+                // Check if there's a post parameter in URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const postParam = urlParams.get("post");
+                if (postParam) {
+                    loadPost(postParam);
+                }
+            });
+        </script>
+    </body>
+</html>
